@@ -8,10 +8,13 @@ from app.api.utils import generate_random_string
 from app.config import settings, celery_app, redis_client
 
 
-api_router = APIRouter(tags=['API'])
+api_router = APIRouter(
+    tags=['API'],
+    prefix='/api',
+)
 
 
-@api_router.post("/api/upload/")
+@api_router.post("/upload/")
 async def upload_file(
     file: UploadFile,
     expiration_minutes: int = Form(...)
@@ -114,7 +117,7 @@ async def delete_file(
         raise HTTPException(status_code=500, detail=f"Ошибка удаления файла: {str(e)}")
 
 
-@api_router.get("/api/files/", response_class=HTMLResponse)
+@api_router.get("/files/", response_class=HTMLResponse)
 async def list_files():
     keys = redis_client.keys("file:*")
     files = []
@@ -251,7 +254,7 @@ async def list_files():
         </div>
         <script>
             async function deleteFile(fileId, dellId) {
-                const response = await fetch(`/delete/${fileId}/${dellId}`, {
+                const response = await fetch(`/api/delete/${fileId}/${dellId}`, {
                     method: 'DELETE'
                 });
                 if (response.ok) {

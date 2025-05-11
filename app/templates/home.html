@@ -271,7 +271,7 @@ button:focus {
                 // Обработчик для кнопки "Удалить файл"
                 document.getElementById("deleteFileBtn").onclick = async () => {
                     try {
-                        const deleteResponse = await fetch(`/delete/${data.file_id}/${data.dell_id}`, { method: 'DELETE' });
+                        const deleteResponse = await fetch(`/api/delete/${data.file_id}/${data.dell_id}`, { method: 'DELETE' });
                         if (deleteResponse.ok) {
                             alert("Файл успешно удален!");
                             modal.style.display = "none"; // Закрываем модальное окно

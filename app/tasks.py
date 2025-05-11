@@ -12,7 +12,7 @@ from app.config import celery_app, settings
 def delete_file_scheduled(self, file_id, dell_id):
     """Задача для отложенного удаления файла"""
     try:
-        response = requests.delete(f"{settings.BASE_URL}/delete/{file_id}/{dell_id}")
+        response = requests.delete(f"{settings.BASE_URL}/api/delete/{file_id}/{dell_id}")
         response.raise_for_status()
         return response.status_code
     except requests.RequestException as exc:
